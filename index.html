@@ -624,7 +624,7 @@
     <div class="ai-header">
       <div class="ai-header-title">
         AI Assistant
-        <span class="ai-badge">Claude</span>
+        <span class="ai-badge">OpenRouter</span>
       </div>
       <div class="ai-pills" id="ai-pills">
         <button class="ai-pill selected" data-mode="generate" onclick="selectMode(this)">Generate</button>
@@ -661,6 +661,19 @@
 <div class="notif" id="notif"></div>
  
 <script>
+// ─────────────────────────────────────────────
+// CONFIGURATION — replace the values below
+// ─────────────────────────────────────────────
+const OPENROUTER_API_KEY = "YOUR_OPENROUTER_API_KEY_HERE";
+const OPENROUTER_MODEL   = "YOUR_MODEL_ID_HERE";
+// Example model IDs:
+//   "openai/gpt-4o"
+//   "openai/gpt-4o-mini"
+//   "anthropic/claude-sonnet-4-5"
+//   "google/gemini-pro-1.5"
+//   "meta-llama/llama-3.1-70b-instruct"
+// ─────────────────────────────────────────────
+ 
 const CHAPTERS = [
   { id: 'title-page', label: 'Title Page', title: 'Title Page', placeholder: 'Enter project title, student name, institute details...' },
   { id: 'abstract', label: 'Abstract', title: 'Abstract', placeholder: 'A concise summary of the entire project...' },
@@ -855,11 +868,19 @@ function hideAIResult() {
 }
  
 async function runAI() {
-  const chapterInfo = CHAPTERS.find(c => c.id === activeChapterId);
+  if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY === "YOUR_OPENROUTER_API_KEY_HERE") {
+    showNotif('⚠ Add your OpenRouter API key in the HTML file first.');
+    return;
+  }
+  if (!OPENROUTER_MODEL || OPENROUTER_MODEL === "YOUR_MODEL_ID_HERE") {
+    showNotif('⚠ Set your model ID in the HTML file first.');
+    return;
+  }
+ 
   const userPrompt = document.getElementById('ai-prompt').value.trim();
   const currentContent = document.getElementById('doc-editor').innerText.trim();
  
-  let systemPrompt = `You are an expert academic writing assistant helping students write formal college project reports and black books. Always write in a formal, third-person, academic style. Use proper paragraph structure, clear transitions, and precise technical language. Output should be ready to paste directly into a document—no preamble, no meta-commentary, just the content.`;
+  const systemPrompt = `You are an expert academic writing assistant helping students write formal college project reports and black books. Always write in a formal, third-person, academic style. Use proper paragraph structure, clear transitions, and precise technical language. Output should be ready to paste directly into a document—no preamble, no meta-commentary, just the content.`;
  
   let userMsg = '';
   const chTitle = storage[activeChapterId].title;
@@ -886,23 +907,42 @@ async function runAI() {
   document.getElementById('ai-result').classList.remove('visible');
  
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+        'HTTP-Referer': window.location.href,
+        'X-Title': 'AcadDoc Editor'
+      },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: OPENROUTER_MODEL,
         max_tokens: 1000,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: userMsg }]
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user',   content: userMsg }
+        ]
       })
     });
+ 
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      const msg = err?.error?.message || `HTTP ${res.status}`;
+      throw new Error(msg);
+    }
+ 
     const data = await res.json();
-    const text = data.content?.map(b => b.text || '').join('') || 'No response received.';
+    const text = data.choices?.[0]?.message?.content || 'No response received.';
     lastAIResult = text;
     document.getElementById('ai-result-text').innerHTML = text.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
     document.getElementById('ai-result').classList.add('visible');
+ 
   } catch(e) {
-    document.getElementById('ai-result-text').innerHTML = '<em style="color:#8e2d2d">Error connecting to AI. Please try again.</em>';
+    document.getElementById('ai-result-text').innerHTML =
+      `<em style="color:#8e2d2d;font-family:var(--font-sans);font-size:11px;">
+        Error: ${e.message || 'Could not connect to OpenRouter.'}<br><br>
+        Check that your API key and model ID are set correctly in the HTML file.
+      </em>`;
     document.getElementById('ai-result').classList.add('visible');
   } finally {
     document.getElementById('ai-btn').disabled = false;
@@ -995,4 +1035,3 @@ try {
 </script>
 </body>
 </html>
- 
