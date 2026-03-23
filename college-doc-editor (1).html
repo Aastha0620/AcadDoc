@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   :root {
     --ink: #1a1a2e;
     --ink-2: #3d3d5c;
@@ -30,7 +30,7 @@
     --font-serif: 'Crimson Pro', Georgia, serif;
     --font-sans: 'DM Sans', system-ui, sans-serif;
   }
-
+ 
   body {
     font-family: var(--font-sans);
     background: var(--paper-2);
@@ -40,7 +40,7 @@
     flex-direction: column;
     overflow: hidden;
   }
-
+ 
   /* ── Top Bar ── */
   .topbar {
     background: var(--ink);
@@ -71,14 +71,14 @@
   .btn-top:hover { background: rgba(255,255,255,0.1); }
   .btn-top.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
   .btn-top.primary:hover { background: #3a6fa6; }
-
+ 
   /* ── Main Layout ── */
   .layout {
     display: flex;
     flex: 1;
     overflow: hidden;
   }
-
+ 
   /* ── Sidebar ── */
   .sidebar {
     width: 220px;
@@ -127,7 +127,7 @@
     flex-shrink: 0;
   }
   .chapter-status.has-content { background: var(--success); }
-
+ 
   .sidebar-footer {
     margin-top: auto;
     padding: 12px 16px;
@@ -135,7 +135,7 @@
   }
   .word-count-label { font-size: 10px; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
   .word-count-val { font-size: 18px; font-weight: 600; color: rgba(255,255,255,0.7); font-family: var(--font-serif); }
-
+ 
   /* ── Editor Area ── */
   .editor-area {
     flex: 1;
@@ -144,7 +144,7 @@
     overflow: hidden;
     background: var(--paper-2);
   }
-
+ 
   /* ── Format Toolbar ── */
   .format-bar {
     background: var(--paper);
@@ -221,7 +221,7 @@
   .style-pill.sp-body     { font-size: 11px; font-weight: 400; }
   /* Align active states */
   .align-btn.al-active { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
-
+ 
   /* ── Document Canvas ── */
   .doc-scroll {
     flex: 1;
@@ -335,7 +335,7 @@
     user-select: none;
   }
   .format-badge strong { color: var(--accent); font-weight: 600; }
-
+ 
   /* ── AI Panel ── */
   .ai-panel {
     width: 300px;
@@ -388,9 +388,9 @@
   }
   .ai-pill:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
   .ai-pill.selected { background: var(--accent); border-color: var(--accent); color: #fff; }
-
+ 
   .ai-body { flex: 1; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; }
-
+ 
   .ai-prompt-area {
     width: 100%;
     border: 1px solid var(--border);
@@ -406,7 +406,7 @@
     min-height: 80px;
   }
   .ai-prompt-area:focus { border-color: var(--accent); background: #fff; }
-
+ 
   .ai-gen-btn {
     width: 100%;
     background: var(--accent);
@@ -426,7 +426,7 @@
   }
   .ai-gen-btn:hover { background: #3a6fa6; }
   .ai-gen-btn:disabled { background: var(--ink-3); cursor: not-allowed; }
-
+ 
   .ai-result-box {
     border: 1px solid var(--border);
     border-radius: var(--r);
@@ -456,7 +456,7 @@
   .ai-result-btn:hover { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
   .ai-result-btn.insert { background: var(--success); color: #fff; border-color: var(--success); }
   .ai-result-btn.insert:hover { background: #235f3c; }
-
+ 
   .ai-loading {
     text-align: center;
     padding: 20px;
@@ -474,14 +474,14 @@
     margin: 0 auto 8px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
-
+ 
   .ai-hint {
     font-size: 11px;
     color: var(--ink-3);
     padding: 6px 0;
     line-height: 1.5;
   }
-
+ 
   /* ── Notification ── */
   .notif {
     position: fixed;
@@ -500,7 +500,7 @@
     z-index: 999;
   }
   .notif.show { opacity: 1; }
-
+ 
   /* ── Scrollbars ── */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -508,7 +508,7 @@
 </style>
 </head>
 <body>
-
+ 
 <!-- Top Bar -->
 <div class="topbar">
   <div class="topbar-logo">Acad<span>Doc</span></div>
@@ -518,10 +518,10 @@
     <button class="btn-top primary" onclick="saveDoc()">Save Draft</button>
   </div>
 </div>
-
+ 
 <!-- Main Layout -->
 <div class="layout">
-
+ 
   <!-- Sidebar: Chapter List -->
   <div class="sidebar">
     <div class="sidebar-heading">Chapters</div>
@@ -531,7 +531,7 @@
       <div class="word-count-val" id="total-words">0</div>
     </div>
   </div>
-
+ 
   <!-- Editor -->
   <div class="editor-area">
     <!-- Format Bar: Row 1 — Style presets + font + text decoration -->
@@ -601,7 +601,7 @@
         <span id="fmt-preview-label" style="font-size:11px;color:var(--ink-3);font-family:var(--font-sans);">Times New Roman · 12px · Justify · 1.85 spacing</span>
       </div>
     </div>
-
+ 
     <!-- Document Canvas -->
     <div class="doc-scroll">
       <div class="doc-page" id="doc-page">
@@ -618,7 +618,7 @@
       </div>
     </div>
   </div>
-
+ 
   <!-- AI Assistant Panel -->
   <div class="ai-panel">
     <div class="ai-header">
@@ -656,10 +656,10 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- Notification -->
 <div class="notif" id="notif"></div>
-
+ 
 <script>
 const CHAPTERS = [
   { id: 'title-page', label: 'Title Page', title: 'Title Page', placeholder: 'Enter project title, student name, institute details...' },
@@ -673,7 +673,7 @@ const CHAPTERS = [
   { id: 'conclusion', label: 'Ch 7 – Conclusion', title: 'Conclusion', placeholder: 'Summary, limitations, and future scope...' },
   { id: 'references', label: 'References', title: 'References', placeholder: 'List all cited works in IEEE/APA format...' },
 ];
-
+ 
 const storage = {};
 let activeChapterId = 'intro';
 let aiMode = 'generate';
@@ -682,7 +682,7 @@ let currentFont = "'Times New Roman', serif";
 let currentAlign = 'justify';
 let currentLineSpacing = '1.85';
 let currentParaSpacing = '12';
-
+ 
 const modeHints = {
   generate: 'Generate new content for the current chapter in academic style.',
   improve: 'Paste or select text below to improve its academic tone and clarity.',
@@ -690,7 +690,7 @@ const modeHints = {
   suggest: 'Get suggested headings, points, or an outline for this chapter.',
   summarize: 'Summarize the current chapter content concisely.',
 };
-
+ 
 const modePlaceholders = {
   generate: 'Describe what this chapter should cover...',
   improve: 'Paste the text you want to improve...',
@@ -698,7 +698,7 @@ const modePlaceholders = {
   suggest: 'Topic or aspect to get suggestions for...',
   summarize: '(Leave blank to summarize current chapter, or paste text)',
 };
-
+ 
 function init() {
   const list = document.getElementById('chapter-list');
   CHAPTERS.forEach((ch, i) => {
@@ -715,7 +715,7 @@ function init() {
   setAlign('justify');
   applyParaSpacing('12');
 }
-
+ 
 function switchChapter(id) {
   saveCurrentChapter();
   activeChapterId = id;
@@ -725,7 +725,7 @@ function switchChapter(id) {
   loadChapter(id);
   hideAIResult();
 }
-
+ 
 function saveCurrentChapter() {
   const editor = document.getElementById('doc-editor');
   const titleEl = document.getElementById('chapter-title');
@@ -734,7 +734,7 @@ function saveCurrentChapter() {
   updateStatus(activeChapterId);
   updateWordCount();
 }
-
+ 
 function loadChapter(id) {
   const ch = CHAPTERS.find(c => c.id === id);
   const data = storage[id];
@@ -747,14 +747,14 @@ function loadChapter(id) {
   updateStatus(id);
   updateWordCount();
 }
-
+ 
 function updateStatus(id) {
   const el = document.getElementById('status-' + id);
   if (!el) return;
   const hasContent = storage[id].content.replace(/<[^>]*>/g,'').trim().length > 20;
   el.classList.toggle('has-content', hasContent);
 }
-
+ 
 function updateWordCount() {
   let total = 0;
   Object.values(storage).forEach(d => {
@@ -762,19 +762,19 @@ function updateWordCount() {
   });
   document.getElementById('total-words').textContent = total.toLocaleString();
 }
-
+ 
 document.getElementById('doc-editor').addEventListener('input', () => {
   saveCurrentChapter();
 });
 document.getElementById('chapter-title').addEventListener('input', () => {
   storage[activeChapterId].title = document.getElementById('chapter-title').innerText;
 });
-
+ 
 function execCmd(cmd) {
   document.getElementById('doc-editor').focus();
   document.execCommand(cmd, false, null);
 }
-
+ 
 function setAlign(align) {
   document.getElementById('doc-editor').focus();
   document.execCommand('justify' + align.charAt(0).toUpperCase() + align.slice(1), false, null);
@@ -784,13 +784,13 @@ function setAlign(align) {
   currentAlign = align;
   updatePreviewBadge();
 }
-
+ 
 function applyAcadStyle(tag) {
   const editor = document.getElementById('doc-editor');
   editor.focus();
   document.execCommand('formatBlock', false, tag);
 }
-
+ 
 function applyFont(fontVal) {
   currentFont = fontVal;
   const editor = document.getElementById('doc-editor');
@@ -804,7 +804,7 @@ function applyFont(fontVal) {
   document.getElementById('fb-font').textContent = label;
   document.getElementById('fmt-preview-label').textContent = buildPreviewLabel();
 }
-
+ 
 function applyLineSpacing(val) {
   currentLineSpacing = val;
   const editor = document.getElementById('doc-editor');
@@ -815,7 +815,7 @@ function applyLineSpacing(val) {
   document.getElementById('fb-spacing').textContent = val + ' line spacing';
   document.getElementById('fmt-preview-label').textContent = buildPreviewLabel();
 }
-
+ 
 function applyParaSpacing(val) {
   currentParaSpacing = val;
   const px = val + 'px';
@@ -825,21 +825,21 @@ function applyParaSpacing(val) {
   styleEl.textContent = `.doc-editor p, .doc-editor div { margin-bottom: ${px} !important; } .doc-editor h1 { margin-top: ${parseInt(val)*2.2|0}px; } .doc-editor h2 { margin-top: ${parseInt(val)*1.8|0}px; } .doc-editor h3 { margin-top: ${parseInt(val)*1.3|0}px; }`;
   document.getElementById('fmt-preview-label').textContent = buildPreviewLabel();
 }
-
+ 
 function buildPreviewLabel() {
   const fontLabel = currentFont.split(',')[0].replace(/'/g,'').trim();
   const alignMap  = { left:'Left', center:'Center', right:'Right', justify:'Justify' };
   return `${fontLabel} · ${alignMap[currentAlign]||'Left'} · ${currentLineSpacing} spacing · ${currentParaSpacing}px para gap`;
 }
-
+ 
 function updatePreviewBadge() {
   document.getElementById('fb-align').textContent = currentAlign.charAt(0).toUpperCase() + currentAlign.slice(1);
   document.getElementById('fmt-preview-label').textContent = buildPreviewLabel();
 }
-
+ 
 // Legacy compatibility
 function applyStyle(tag) { applyAcadStyle(tag || 'p'); }
-
+ 
 function selectMode(btn) {
   document.querySelectorAll('.ai-pill').forEach(p => p.classList.remove('selected'));
   btn.classList.add('selected');
@@ -848,22 +848,22 @@ function selectMode(btn) {
   document.getElementById('ai-prompt').placeholder = modePlaceholders[aiMode];
   hideAIResult();
 }
-
+ 
 function hideAIResult() {
   document.getElementById('ai-result').classList.remove('visible');
   document.getElementById('ai-loading').classList.remove('visible');
 }
-
+ 
 async function runAI() {
   const chapterInfo = CHAPTERS.find(c => c.id === activeChapterId);
   const userPrompt = document.getElementById('ai-prompt').value.trim();
   const currentContent = document.getElementById('doc-editor').innerText.trim();
-
+ 
   let systemPrompt = `You are an expert academic writing assistant helping students write formal college project reports and black books. Always write in a formal, third-person, academic style. Use proper paragraph structure, clear transitions, and precise technical language. Output should be ready to paste directly into a document—no preamble, no meta-commentary, just the content.`;
-
+ 
   let userMsg = '';
   const chTitle = storage[activeChapterId].title;
-
+ 
   if (aiMode === 'generate') {
     userMsg = `Write academic content for the chapter titled "${chTitle}" in a college project report. ${userPrompt ? 'Focus on: ' + userPrompt : 'Cover the essential academic content for this chapter.'} Write 2–4 well-structured paragraphs with an appropriate heading.`;
   } else if (aiMode === 'improve') {
@@ -880,11 +880,11 @@ async function runAI() {
     if (!textToSumm) { showNotif('There is no content to summarize yet.'); return; }
     userMsg = `Write a concise academic summary (2–3 sentences) of the following content from the chapter "${chTitle}":\n\n${textToSumm}`;
   }
-
+ 
   document.getElementById('ai-btn').disabled = true;
   document.getElementById('ai-loading').classList.add('visible');
   document.getElementById('ai-result').classList.remove('visible');
-
+ 
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -909,14 +909,14 @@ async function runAI() {
     document.getElementById('ai-loading').classList.remove('visible');
   }
 }
-
+ 
 function insertContent() {
   const editor = document.getElementById('doc-editor');
   editor.innerHTML = lastAIResult.replace(/\n\n/g, '</p><p>').replace(/\n/g,'<br>');
   saveCurrentChapter();
   showNotif('Content inserted into editor');
 }
-
+ 
 function appendContent() {
   const editor = document.getElementById('doc-editor');
   const addition = '<br><br>' + lastAIResult.replace(/\n\n/g, '</p><p>').replace(/\n/g,'<br>');
@@ -924,18 +924,18 @@ function appendContent() {
   saveCurrentChapter();
   showNotif('Content appended to editor');
 }
-
+ 
 function copyResult() {
   navigator.clipboard.writeText(lastAIResult).then(() => showNotif('Copied to clipboard'));
 }
-
+ 
 function saveDoc() {
   saveCurrentChapter();
   const data = JSON.stringify(storage);
   localStorage.setItem('acadoc-draft', data);
   showNotif('Draft saved locally');
 }
-
+ 
 function exportDoc() {
   saveCurrentChapter();
   const fontFace = currentFont || "'Times New Roman', serif";
@@ -967,21 +967,21 @@ function exportDoc() {
   a.click();
   showNotif('Exported — open in Chrome & press Ctrl+P → Save as PDF');
 }
-
+ 
 function showNotif(msg) {
   const el = document.getElementById('notif');
   el.textContent = msg;
   el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 2800);
 }
-
+ 
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveDoc(); }
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runAI(); }
 });
-
+ 
 init();
-
+ 
 try {
   const saved = localStorage.getItem('acadoc-draft');
   if (saved) {
@@ -995,3 +995,4 @@ try {
 </script>
 </body>
 </html>
+ 
